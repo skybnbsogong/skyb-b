@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".HomeFragment">
+    <TextView
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="13dp"
+        android:text="숙소 목록"
+        android:textSize="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="37dp" />
+    <include layout="@layout/separator"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>
