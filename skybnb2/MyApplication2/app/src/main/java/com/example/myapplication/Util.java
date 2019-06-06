@@ -18,4 +18,9 @@ public class Util implements Serializable {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
         return sdf.format(date);
     }
+    public int getfinalPrice(int price){
+        int clean = price * 4 / 100;
+        int service = price * 2 / 100;
+        return price + clean + service;
+    }
 }

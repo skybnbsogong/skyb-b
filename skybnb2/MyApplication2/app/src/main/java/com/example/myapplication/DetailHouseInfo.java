@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,9 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -30,6 +31,7 @@ public class DetailHouseInfo extends Fragment {
 
     TextView dateBtn;
     House data;
+    Util util;
     public DetailHouseInfo() {
         // Required empty public constructor
     }
@@ -40,6 +42,7 @@ public class DetailHouseInfo extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         data = (House)getArguments().getSerializable("DATA");
+        util = new Util();
         return inflater.inflate(R.layout.fragment_detail_house_info, container, false);
     }
 
@@ -74,11 +77,33 @@ public class DetailHouseInfo extends Fragment {
                 //다이얼로그로 부터 결과값을 받아오고 그 후 처리
                 cd.setDialogResult(new CustomDialog.CustomDialogResult(){
                     @Override
-                    public void finish(String result) {
-                        if(!result.equals("cancel")) {
-                            Intent intent = new Intent();
-                            intent.setAction("HomeFragment");
-                            v.getContext().sendBroadcast(intent);
+                    public void finish(final ArrayList<Date> result) {
+                        if(result != null) {
+                            int days = result.size();
+                            //텍스트 수정
+                            TextView priceTv = (TextView)getView().findViewById(R.id.txt2);
+                            priceTv.setText(days -1 + "박 요금은 " + util.comma(util.getfinalPrice((days - 1) * data.getHousePrice())) + "원 입니다.");
+
+                            //버튼 활성화
+                            TextView reservationBtn = (TextView)getView().findViewById(R.id.reservationBtn);
+                            reservationBtn.setBackgroundResource(R.drawable.use_btn_label);
+                            reservationBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Fragment fr = new PayFragment();
+                                    //새로운 프래그먼트에 전달할 객체
+                                    Bundle args = new Bundle();
+                                    args.putSerializable("HOUSE", data);
+                                    args.putSerializable("DATES", result);
+                                    fr.setArguments(args);
+                                    FragmentActivity f = (FragmentActivity)v.getContext();
+                                    FragmentManager fm = f.getSupportFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                                    fragmentTransaction.replace(R.id.dynamic_mainFragment, fr);
+                                    fragmentTransaction.addToBackStack(null);
+                                    fragmentTransaction.commit();
+                                }
+                            });
                         }
                     }
                 });
