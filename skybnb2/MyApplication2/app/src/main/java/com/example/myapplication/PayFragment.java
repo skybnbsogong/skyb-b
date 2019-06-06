@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +34,7 @@ public class PayFragment extends Fragment {
     TextView servicePriceTv;
 
     TextView finalPriceTv;
-
+    TextView reservationBtn;
     Util util;
     public PayFragment(){}
 
@@ -72,6 +75,21 @@ public class PayFragment extends Fragment {
         finalPriceTv = (TextView)getView().findViewById(R.id.totalMoney_txt);
         finalPriceTv.setText("￦" + util.comma(util.getfinalPrice(originPrice)));
 
+        reservationBtn = (TextView)getView().findViewById(R.id.reservation_btn);
+        reservationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fr = new HomeFragment();
+                FragmentActivity f = (FragmentActivity)v.getContext();
+                FragmentManager fm = f.getSupportFragmentManager();
+                for(int i = 0; i < fm.getBackStackEntryCount(); ++i){
+                    fm.popBackStack();
+                }
+                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.replace(R.id.dynamic_mainFragment, fr);
+                fragmentTransaction.commit();
+            }
+        });
         super.onActivityCreated(savedInstanceState);
     }
 }

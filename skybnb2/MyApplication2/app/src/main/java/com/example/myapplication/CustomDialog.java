@@ -108,7 +108,7 @@ public class CustomDialog extends DialogFragment {
         nextYear.add(Calendar.YEAR, 1);
         calendar = (CalendarPickerView)getView().findViewById(R.id.calendar_view);
 
-        calendar.init(pastYear.getTime(), nextYear.getTime()) //
+        calendar.init(pastYear.getTime(), nextYear.getTime())
                 .inMode(CalendarPickerView.SelectionMode.RANGE)
                 .withSelectedDate(new Date());
         calendar.setTypeface(Typeface.SANS_SERIF);

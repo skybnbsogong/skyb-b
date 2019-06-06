@@ -244,13 +244,13 @@
             android:layout_marginTop="30dp"
             android:background="@color/colorPrimary" />
 
-        <Button
+        <TextView
             android:id="@+id/reservation_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="44dp"
+            android:gravity="center"
             android:layout_marginTop="10dp"
             android:background="@drawable/use_btn_label"
-            android:onClick="onClick"
             android:text="결제완료"
             android:textColor="#fff"
             android:textSize="20dp"
