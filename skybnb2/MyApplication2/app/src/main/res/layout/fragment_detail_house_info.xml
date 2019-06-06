@@ -84,6 +84,7 @@
         android:text="★★★☆☆ 31" />
 
     <Button
+        android:background="@drawable/btn_label"
         android:id="@+id/date_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
