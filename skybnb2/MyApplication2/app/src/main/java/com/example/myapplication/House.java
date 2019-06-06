@@ -10,10 +10,11 @@ public class House implements Serializable {
     private String houseLocation;
     private String houseInfo;
     private String houseDetailInfo;
+    private int houseUsers;
 
     private Util util;
 
-    public House(int image, String name, String score, int price, String location, String info, String detailInfo){
+    public House(int image, String name, String score, int price, String location, String info, String detailInfo, int users){
         this.houseimage = image;
         this.houseName = name;
         this.houseScore = score;
@@ -21,6 +22,7 @@ public class House implements Serializable {
         this.houseLocation = location;
         this.houseInfo = info;
         this.houseDetailInfo = detailInfo;
+        this.houseUsers = users;
         util = new Util();
     }
 
@@ -53,5 +55,9 @@ public class House implements Serializable {
 
     public String getHouseLocation() {
         return houseLocation;
+    }
+
+    public String getHouseUsers() {
+        return houseUsers + " 명";
     }
 }

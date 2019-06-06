@@ -13,17 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.savvi.rangedatepicker.CalendarPickerView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Stack;
 
 
 /**
@@ -43,7 +40,7 @@ public class CustomDialog extends DialogFragment {
         // Required empty public constructor
     }
     public interface CustomDialogResult{
-        void finish(String result);
+        void finish(ArrayList<Date> result);
     }
 
     @Override
@@ -75,13 +72,25 @@ public class CustomDialog extends DialogFragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-
-        final TextView canceltextView = (TextView) getView().findViewById(R.id.pay_account_stat_cancel_button);
-        canceltextView.setOnClickListener(new View.OnClickListener() {
+        final TextView okTextView = (TextView)getView().findViewById(R.id.selectBtn);
+        okTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result = "cancel";
-                dialogResult.finish(result);
+                if(calendar.getSelectedDates() == null || calendar.getSelectedDates().size() < 2){
+                    Toast.makeText(getContext(), "1박 2일 이상으로 선택해주세요", Toast.LENGTH_LONG).show();
+                }else{
+                    ArrayList<Date> result = (ArrayList<Date>)calendar.getSelectedDates();
+                    dialogResult.finish(result);
+                    DialogFragment dialogFragment = (DialogFragment)fragment;
+                    dialogFragment.dismiss();
+                }
+            }
+        });
+        final TextView cancelTextView = (TextView) getView().findViewById(R.id.cancelBtn);
+        cancelTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogResult.finish(null);
                 DialogFragment dialogFragment = (DialogFragment)fragment;
                 dialogFragment.dismiss();
             }

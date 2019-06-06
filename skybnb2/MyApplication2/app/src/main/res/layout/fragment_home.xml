@@ -15,7 +15,7 @@
         android:textStyle="bold"
         android:textSize="30dp"
         android:layout_width="match_parent"
-        android:layout_height="37dp" />
+        android:layout_height="wrap_content" />
     <include layout="@layout/separator"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview_main"
