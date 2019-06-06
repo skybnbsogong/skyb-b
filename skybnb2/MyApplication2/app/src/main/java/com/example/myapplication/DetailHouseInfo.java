@@ -1,9 +1,13 @@
 package com.example.myapplication;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +27,7 @@ public class DetailHouseInfo extends Fragment {
     TextView tv_money;
     TextView tv_star;
 
+    TextView dateBtn;
     House data;
     public DetailHouseInfo() {
         // Required empty public constructor
@@ -52,6 +57,30 @@ public class DetailHouseInfo extends Fragment {
         tv_location.setText(data.getHouseLocation());
         tv_money.setText("요금을 확인하려면 날짜를 \n입력하세요.\n" );
         tv_star.setText(data.getHouseScore());
+
+
+        dateBtn = (TextView)getView().findViewById(R.id.date_btn);
+        dateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                CustomDialog cd = new CustomDialog();
+
+                FragmentActivity f = (FragmentActivity) v.getContext();
+                FragmentManager fm = f.getSupportFragmentManager();
+                cd.show(fm, "OpenDialog");
+                //다이얼로그로 부터 결과값을 받아오고 그 후 처리
+                cd.setDialogResult(new CustomDialog.CustomDialogResult(){
+                    @Override
+                    public void finish(String result) {
+                        if(!result.equals("cancel")) {
+                            Intent intent = new Intent();
+                            intent.setAction("HomeFragment");
+                            v.getContext().sendBroadcast(intent);
+                        }
+                    }
+                });
+            }
+        });
 
         super.onActivityCreated(savedInstanceState);
     }
