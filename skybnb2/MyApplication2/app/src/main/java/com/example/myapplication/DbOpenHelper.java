@@ -5,6 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class DbOpenHelper extends SQLiteOpenHelper {
 
@@ -28,11 +32,11 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public void insert(String name, int start, int finish) {
+    public void insert(String name, String start, String finish) {
         // 읽고 쓰기가 가능하게 DB 열기
         SQLiteDatabase db = getWritableDatabase();
         // DB에 입력한 값으로 행 추가
-        db.execSQL("INSERT INTO RESERVATION VALUES(null, '" + name + "', " + start + ", " + finish + ");");
+        db.execSQL("INSERT INTO RESERVATION VALUES(null, '" + name + "', '" + start + "', '" + finish + "');");
         db.close();
     }
 
@@ -43,10 +47,10 @@ public class DbOpenHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void delete(String item) {
+    public void delete(int id) {
         SQLiteDatabase db = getWritableDatabase();
         // 입력한 항목과 일치하는 행 삭제
-        db.execSQL("DELETE FROM MONEYBOOK WHERE item='" + item + "';");
+        db.execSQL("DELETE FROM RESERVATION WHERE _id='" + id + "';");
         db.close();
     }
 
@@ -62,12 +66,33 @@ public class DbOpenHelper extends SQLiteOpenHelper {
                     + " : "
                     + cursor.getString(1)
                     + " : "
-                    + cursor.getInt(2)
+                    + cursor.getString(2)
                     + ": "
                     + cursor.getString(3)
                     + "\n";
         }
 
         return result;
+    }
+
+    public ArrayList<Reservation> getReservationList() {
+        // 읽기가 가능하게 DB 열기
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<Reservation> temp = new ArrayList<Reservation>();
+        // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
+        Cursor cursor = db.rawQuery("SELECT * FROM RESERVATION", null);
+        while (cursor.moveToNext()) {
+            HouseData hd = new HouseData();
+            Util util = new Util();
+            House house = hd.getHouse(cursor.getString(1));
+            Date checkin = new Date(cursor.getString(2));
+            Date checkout = new Date(cursor.getString(3));
+            long diff = checkout.getTime() - checkin.getTime();
+            long diffDays = diff / (24 * 60 * 60 * 1000);
+            temp.add(new Reservation(house, checkin, checkout,
+                    util.getfinalPrice((house.getHousePrice() * (int)diffDays)), cursor.getInt(0)));
+        }
+
+        return temp;
     }
 }

@@ -62,7 +62,6 @@ public class DetailHouseInfo extends Fragment {
         tv_money.setText("요금을 확인하려면 날짜를 \n입력하세요.\n" );
         tv_star.setText(data.getHouseScore());
 
-        final DbOpenHelper dbHelper = new DbOpenHelper(getContext(), "Reservation.db", null, 1);
 
 
         dateBtn = (TextView)getView().findViewById(R.id.date_btn);
@@ -109,9 +108,6 @@ public class DetailHouseInfo extends Fragment {
                 });
             }
         });
-
-        dbHelper.insert(data.getHouseName(),2,6);
-        Log.i("NKW",dbHelper.getResult());
 
         super.onActivityCreated(savedInstanceState);
     }

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class PayFragment extends Fragment {
     TextView finalPriceTv;
     TextView reservationBtn;
     Util util;
+    DbOpenHelper dbOpenHelper;
     public PayFragment(){}
 
     @Override
@@ -43,6 +45,7 @@ public class PayFragment extends Fragment {
         dates = (ArrayList<Date>)getArguments().getSerializable("DATES");
         house = (House)getArguments().getSerializable("HOUSE");
         util = new Util();
+        dbOpenHelper = new DbOpenHelper(getContext(), "reservation.db", null, 1);
         return inflater.inflate(R.layout.pay_fragment, container, false);
     }
 
@@ -79,6 +82,7 @@ public class PayFragment extends Fragment {
         reservationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dbOpenHelper.insert(house.getHouseName(), dates.get(0).toString(), dates.get(dates.size() - 1).toString());
                 Fragment fr = new HomeFragment();
                 FragmentActivity f = (FragmentActivity)v.getContext();
                 FragmentManager fm = f.getSupportFragmentManager();

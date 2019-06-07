@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setElevation(0);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_1) {
             // Handle the camera action
-            fr = new HomeFragment();
+            fr = new ReservationSearchFragment();
             changeFragment(fr);
         } else if (id == R.id.nav_gallery) {
 
