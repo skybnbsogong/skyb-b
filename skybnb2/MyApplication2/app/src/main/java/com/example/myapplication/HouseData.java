@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class HouseData {
     private ArrayList<House> data;
@@ -18,5 +19,15 @@ public class HouseData {
     }
     public ArrayList<House> getData(){
         return this.data;
+    }
+    public House getHouse(String name){
+        Iterator<House> it = data.iterator();
+        while(it.hasNext()){
+            House temp = it.next();
+            if(name.equals(temp.getHouseName())){
+                return temp;
+            }
+        }
+        return null;
     }
 }

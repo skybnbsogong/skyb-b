@@ -8,7 +8,7 @@
     tools:context="DetailHouseInfo">
     <TextView android:id="@+id/title"
         android:text="상세 정보"
-        android:textColor="#000"
+        android:textColor="#666"
         android:textStyle="bold"
         android:textSize="25dp"
         android:layout_width="match_parent"

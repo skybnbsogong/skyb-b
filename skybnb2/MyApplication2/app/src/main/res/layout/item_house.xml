@@ -3,44 +3,49 @@
     android:id="@+id/list_item"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:layout_weight="1"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
-
-    <ImageView
-        android:id="@+id/house_image"
-        android:layout_margin="13dp"
-        android:layout_width="170dp"
-        android:layout_height="150dp"
-        android:src="@drawable/house_expensive" />
-
+    android:orientation="vertical">
     <LinearLayout
-        android:layout_marginLeft="13dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/house_image"
+            android:layout_margin="13dp"
+            android:layout_width="170dp"
+            android:layout_height="150dp"
+            android:src="@drawable/house_expensive" />
 
-        <TextView
-            android:id="@+id/house_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="좀 비싼 집"
-            android:textSize="10pt"
-            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_marginLeft="13dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/house_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="￦997,150 /박" />
+            <TextView
+                android:id="@+id/house_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="좀 비싼 집"
+                android:textSize="10pt"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/house_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="★★★☆☆ 31"
-            android:textColor="@android:color/holo_purple" />
+            <TextView
+                android:id="@+id/house_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￦997,150 /박" />
+
+            <TextView
+                android:id="@+id/house_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="★★★☆☆ 31"
+                android:textColor="@android:color/holo_purple" />
+        </LinearLayout>
     </LinearLayout>
+    <include layout="@layout/separator2"/>
 </LinearLayout>
